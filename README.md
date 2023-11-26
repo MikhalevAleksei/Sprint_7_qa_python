@@ -1,1 +1,1 @@
-# Sprint_7_qa_python
+Test API Yandex scooter
