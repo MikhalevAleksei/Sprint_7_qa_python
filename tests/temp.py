@@ -1,9 +1,17 @@
-import requests
-
-from handlers import CREATE_COURIER
-from generator import register_new_courier_and_return_login_password as paylot
-from urls import HOME_URL
+import pytest
 
 
-response = requests.post(f"{HOME_URL}{CREATE_COURIER}", data=paylot())
-assert response.status_code == 201
+class TestDataDictionary:
+    data_dictionary = {}
+
+    # добавь setup_class
+    @classmethod
+    def setup_class(cls):
+        cls.data_dictionary["A"] = 1
+        cls.data_dictionary["B"] = 2
+
+    def test_check_first_element(self):
+        assert self.data_dictionary["A"] == 1
+
+    def test_check_second_element(self):
+        assert self.data_dictionary["B"] == 2
