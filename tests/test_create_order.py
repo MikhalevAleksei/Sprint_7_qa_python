@@ -17,8 +17,21 @@ class TestCreateCourier:
         cls.data["password"] = gen_data()[1]
         cls.data["firstName"] = gen_data()[2]
 
-    @allure.step('Check courier created')
+    @allure.step('Check can choose two color black and grey')
+    def test_choose_two_colors_black_or_grey(self):
+        pass
 
+    @allure.step('Check can use both colors')
+    def test_choose_both_colors(self):
+        pass
+
+    @allure.step('Check order scooter without color')
+    def test_order_without_scooter_color(self):
+        pass
+
+    @allure.step('Check answer body has track')
+    def test_body_has_track(self):
+        pass
 
 
     @classmethod
