@@ -65,16 +65,17 @@ class TestCreateCourier:
                             (gen_data()[0], gen_data()[1], '')
                         ]
                         )
-    @allure.step('Check authorisation error message')
-    def test_authorisation_with_not_all_date(self, login, password, firstName):
+    @allure.step('Check create courier error message')
+    def test_create_courier_with_not_all_date(self, login, password,
+                                              firstName):
         negative_auth_data = {'login': login, 'password': password,
                               'firstName': firstName}
 
         response = requests.post(f"{Urls.HOME_URL}{Handlers.CREATE_COURIER}", \
                                  data=negative_auth_data)
-        assert response.json()[1] == 'message": "Недостаточно данных для ' \
-                                      'создания учетной записи', "Wrong " \
-                                                                 "message"
+        assert response.json()['message'] == \
+                'Недостаточно данных для создания учетной записи', \
+                'Wrong message'
 
     @allure.step('Check message for creating courier with same login')
     def test_message_for_same_courier_login(self):
