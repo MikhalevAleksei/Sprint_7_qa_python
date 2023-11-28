@@ -17,7 +17,9 @@ class TestCreateCourier:
         cls.data["password"] = gen_data()[1]
         cls.data["firstName"] = gen_data()[2]
 
-    @allure.step('Check courier created')
+    @allure.step('Check response has list of orders')
+    def test_response_has_list_orders(self):
+        pass
 
 
     @classmethod
