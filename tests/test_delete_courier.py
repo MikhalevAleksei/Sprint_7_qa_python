@@ -21,24 +21,24 @@ class TestCreateCourier:
     def test_negativ_del_courier_return_error(self):
         pass
 
-    @allure.step('Check success response has {"ok":true}')
-    def test_response_has_ok_true(self):
+    @allure.step('Check success delete response has {"ok":true}')
+    def test_delete_response_has_ok_true(self):
         pass
 
-    @allure.step('Check request without id return error')
-    def test_negative_request_without_id(self):
+    @allure.step('Check delete request without id return error')
+    def test_negative_delete_request_without_id(self):
         pass
 
-    @allure.step('Check request with wrong id return error')
-    def test_negative_id_request(self):
+    @allure.step('Check delete request with wrong id return error')
+    def test_negative_id_delete_request(self):
         pass
 
-    @allure.step('Check request without order number return error')
-    def test_negative_without_order_number_request(self):
+    @allure.step('Check delete request without order number return error')
+    def test_negative_without_order_number_delete_request(self):
         pass
 
-    @allure.step('Check request with wrong order number return error')
-    def test_negative_order_number_request(self):
+    @allure.step('Check delete request with wrong order number return error')
+    def test_negative_order_number_delete_request(self):
         pass
 
 
