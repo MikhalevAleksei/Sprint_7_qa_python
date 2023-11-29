@@ -46,4 +46,3 @@ def fake_make_order():
     fake_order.append(deliveryDate)
     fake_order.append(fake_comment)
     return fake_order
-
