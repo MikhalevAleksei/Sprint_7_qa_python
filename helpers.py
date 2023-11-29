@@ -2,12 +2,7 @@ import datetime
 import random as r
 import string
 
-import requests
-
 from faker import Faker
-
-from handlers import Handlers
-from urls import Urls
 
 
 def generate_random_string(length):
@@ -51,5 +46,4 @@ def fake_make_order():
     fake_order.append(deliveryDate)
     fake_order.append(fake_comment)
     return fake_order
-
 

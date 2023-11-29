@@ -66,6 +66,7 @@ def grey_color_scooter_order():
 
     return response
 
+
 @pytest.fixture(scope='function')
 def black_and_grey_color_scooter_order():
     fake_firstName = fake.first_name()
@@ -94,6 +95,7 @@ def black_and_grey_color_scooter_order():
 
     return response
 
+
 @pytest.fixture(scope='function')
 def without_color_scooter_order():
     fake_firstName = fake.first_name()
@@ -119,4 +121,3 @@ def without_color_scooter_order():
         f'{Urls.HOME_URL}{Handlers.MAKE_ORDER}', data=payload)
 
     return response
-

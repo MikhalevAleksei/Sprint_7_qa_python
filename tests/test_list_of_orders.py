@@ -1,5 +1,4 @@
 import allure
-import pytest
 import requests
 
 from generator import make_new_order_and_return_data
@@ -7,7 +6,7 @@ from urls import Urls
 from handlers import Handlers
 
 
-class TestCreateCourier:
+class TestReturnOrdrList:
     data = {}
 
     @classmethod
