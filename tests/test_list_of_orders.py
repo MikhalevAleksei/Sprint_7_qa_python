@@ -2,8 +2,7 @@ import allure
 import pytest
 import requests
 
-from generator import register_new_courier_and_return_login_password as \
-    gen_data
+from generator import make_new_order_and_return_data
 from urls import Urls
 from handlers import Handlers
 
@@ -13,14 +12,13 @@ class TestCreateCourier:
 
     @classmethod
     def setup_class(cls):
-        cls.data["login"] = gen_data()[0]
-        cls.data["password"] = gen_data()[1]
-        cls.data["firstName"] = gen_data()[2]
+        order = make_new_order_and_return_data()
+        cls.data.append(order)
 
     @allure.step('Check response has list of orders')
     def test_response_has_list_orders(self):
-        pass
-
+        response = requests.get(f'{Urls.HOME_URL}{Handlers.MAKE_ORDER}')
+        assert len(response.json()) > 0
 
     @classmethod
     def teardown_class(cls):

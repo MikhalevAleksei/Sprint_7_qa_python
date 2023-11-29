@@ -31,7 +31,7 @@ class TestCreateCourier:
     def test_negative_order_number_order_request(self):
         pass
 
-
     @classmethod
     def teardown_class(cls):
         cls.data.clear()
+

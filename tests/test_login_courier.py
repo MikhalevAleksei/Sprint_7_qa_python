@@ -6,7 +6,7 @@ from generator import register_new_courier_and_return_login_password as \
     gen_data
 from urls import Urls
 from handlers import Handlers
-from helpers import fake_user_registration as fake
+from helpers import fake_courier_registration as fake
 
 
 class TestLoginCourier:
@@ -33,7 +33,7 @@ class TestLoginCourier:
     @pytest.mark.parametrize('login, password',
                              [
                                  ('', gen_data()[1]),
-                                 (gen_data()[0], '', ),
+                                 (gen_data()[0], '',),
                                  ('', '')
                              ]
                              )
@@ -49,7 +49,7 @@ class TestLoginCourier:
     @pytest.mark.parametrize('login, password',
                              [
                                  ('123456', gen_data()[1]),
-                                 (gen_data()[0], '123456', ),
+                                 (gen_data()[0], '123456',),
                                  ('123456', '654321')
                              ]
                              )
@@ -65,7 +65,7 @@ class TestLoginCourier:
     @pytest.mark.parametrize('login, password',
                              [
                                  ('', gen_data()[1]),
-                                 (gen_data()[0], '', ),
+                                 (gen_data()[0], '',),
                                  ('', '')
                              ]
                              )
@@ -85,13 +85,14 @@ class TestLoginCourier:
         response = requests.post(f"{Urls.HOME_URL}{Handlers.LOGIN_COURIER}", \
                                  data=faker_data)
         assert response.json()['message'] == 'Учетная запись не найдена', \
-                                             'Wrong message'
+            'Wrong message'
         print(response.json)
 
     @allure.step('Check_success_login_return_id')
     def test_return_id_for_login(self):
         response = requests.post(f"{Urls.HOME_URL}{Handlers.LOGIN_COURIER}",
                                  data=TestLoginCourier.data)
+        assert id in response.json()
 
     @classmethod
     def teardown_class(cls):
