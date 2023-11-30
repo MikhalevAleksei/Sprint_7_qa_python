@@ -3,7 +3,8 @@ import pytest
 import requests
 
 from generator import register_new_courier_and_return_login_password as \
-    gen_data
+    gen_data, create_courier
+
 from urls import Urls
 from handlers import Handlers
 
@@ -13,15 +14,19 @@ class TestCreateCourier:
 
     @classmethod
     def setup_class(cls):
-        cls.data["login"] = gen_data()[0]
-        cls.data["password"] = gen_data()[1]
-        cls.data["firstName"] = gen_data()[2]
+        courier = gen_data()
+        cls.data["login"] = courier[0]
+        cls.data["password"] = courier[1]
+        cls.data["firstName"] = courier[2]
 
-    @allure.step('Check courier created')
+    @allure.title('Check courier created')
     def test_create_courier(self):
-        assert len(gen_data()) > 0
+        response = requests.post(
+                f'{Urls.HOME_URL}{Handlers.CREATE_COURIER}',
+                data=TestCreateCourier.data)
+        assert response.status_code == 201
 
-    @allure.step('Check no same courier')
+    @allure.title('Check no same courier')
     def test_no_same_courier(self):
         response = requests.post(
             f"{Urls.HOME_URL}{Handlers.CREATE_COURIER}",
@@ -29,14 +34,14 @@ class TestCreateCourier:
         assert response.status_code == 409, "Courier created with same data"
 
     @pytest.mark.parametrize('login, password, firstName',
-                        [
-                            ('', gen_data()[1], gen_data()[2]),
-                            (gen_data()[0], '', gen_data()[2]),
-                            (gen_data()[0], gen_data()[1], ''),
-                            ('', '', '')
-                        ]
-                        )
-    @allure.step('Check authorisation with not all date')
+    [
+        ('', create_courier()[1], create_courier()[2]),
+        (create_courier()[0], '', create_courier()[2]),
+        (create_courier()[0], create_courier()[1], ''),
+        ('', '', '')
+    ]
+                             )
+    @allure.title('Check authorisation with not all date')
     def test_authorisation_with_not_all_date(self, login, password, firstName):
         negative_auth_data = {'login': login, 'password': password,
                               'firstName': firstName}
@@ -45,27 +50,27 @@ class TestCreateCourier:
                                  data=negative_auth_data)
         assert response.status_code == 400, "Courier created with not all data"
 
-    @allure.step('Check status code')
+    @allure.title('Check status code')
     def test_status_code(self):
         response = requests.post(f"{Urls.HOME_URL}{Handlers.CREATE_COURIER}",
                                  data=TestCreateCourier.data)
         assert response.status_code == 201, "Courier not created. Status " \
                                             "code wrong"
 
-    @allure.step('Check response body')
+    @allure.title('Check response body')
     def test_response_body(self):
         response = requests.post(f"{Urls.HOME_URL}{Handlers.CREATE_COURIER}", \
                                  data=TestCreateCourier.data)
         assert response.json()['ok'] == 'true'
 
     @pytest.mark.parametrize('login, password, firstName',
-                        [
-                            ('', gen_data()[1], gen_data()[2]),
-                            (gen_data()[0], '', gen_data()[2]),
-                            (gen_data()[0], gen_data()[1], '')
-                        ]
-                        )
-    @allure.step('Check create courier error message')
+                             [
+                                 ('', gen_data()[1], gen_data()[2]),
+                                 (gen_data()[0], '', gen_data()[2]),
+                                 (gen_data()[0], gen_data()[1], '')
+                             ]
+                             )
+    @allure.title('Check create courier error message')
     def test_create_courier_with_not_all_date(self, login, password,
                                               firstName):
         negative_auth_data = {'login': login, 'password': password,
@@ -74,10 +79,10 @@ class TestCreateCourier:
         response = requests.post(f"{Urls.HOME_URL}{Handlers.CREATE_COURIER}", \
                                  data=negative_auth_data)
         assert response.json()['message'] == \
-                'Недостаточно данных для создания учетной записи', \
-                'Wrong message'
+               'Недостаточно данных для создания учетной записи', \
+            'Wrong message'
 
-    @allure.step('Check message for creating courier with same login')
+    @allure.title('Check message for creating courier with same login')
     def test_message_for_same_courier_login(self):
         response = requests.post(
             f"{Urls.HOME_URL}{Handlers.CREATE_COURIER}",
@@ -88,5 +93,3 @@ class TestCreateCourier:
     @classmethod
     def teardown_class(cls):
         cls.data.clear()
-
-
