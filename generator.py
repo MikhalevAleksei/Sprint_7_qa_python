@@ -65,8 +65,3 @@ def make_new_order_and_return_data():
         order_data.append(order)
 
     return order_data
-
-
-def create_courier():
-    created_courier = register_new_courier_and_return_login_password()
-    return created_courier
