@@ -1,1 +1,1 @@
-Test API Yandex scooter
+Test API Yandex scooter with requests module  
